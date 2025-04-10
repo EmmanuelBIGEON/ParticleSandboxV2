@@ -4,7 +4,11 @@ find_package(fmt REQUIRED)
 
 project(ParticleSandboxV2)
 
-add_executable(ParticleSandboxV2 src/main/main.cpp)
+set(SOURCES
+    src/main/main.cpp
+    src/app/Application.cpp
+)
+add_executable(ParticleSandboxV2 ${SOURCES})
 
 set_property(TARGET ParticleSandboxV2 PROPERTY CXX_STANDARD 23)
 
