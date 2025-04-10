@@ -1,0 +1,28 @@
+{
+   "version": 8,
+   "cmakeMinimumRequired": {
+      "major": 3,
+      "minor": 28,
+      "patch": 1
+    },
+    "configurePresets": [
+      {
+         "name": "default-windows",
+         "generator": "MinGW Makefiles",
+         "description": "Default preset for window",
+         "toolchainFile": "${sourceDir}/build/conan_toolchain.cmake",
+         "binaryDir": "${sourceDir}/build/${presetName}",
+         "cacheVariables": {
+            "CMAKE_BUILD_TYPE": "Debug",
+            "CMAKE_INSTALL_PREFIX": "${sourceDir}/bin/${presetName}",
+            "CMAKE_PREFIX_PATH": "${sourceDir}/build"
+         }
+      }
+    ],
+    "buildPresets": [
+      {
+         "name": "build-default-windows",
+         "configurePreset": "default-windows"
+      }
+    ]
+}

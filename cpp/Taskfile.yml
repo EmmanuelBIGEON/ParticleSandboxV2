@@ -1,0 +1,15 @@
+version: '3'
+
+vars:
+  PRESET: default-windows
+  PROFILE: default
+  BUILD_TYPE: Release
+  
+tasks:
+  build:
+    desc: Building ParticleSandboxV2
+    cmds:
+      - conan install . --output-folder=build --build=missing --profile {{.PROFILE}} -s build_type={{.BUILD_TYPE}}
+      - cmake --preset {{.PRESET}} --fresh -DCMAKE_BUILD_TYPE={{.BUILD_TYPE}}
+      - cmake --build --preset build-{{.PRESET}} -j 8 --target install
+    silent: false

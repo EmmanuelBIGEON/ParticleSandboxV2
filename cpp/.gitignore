@@ -1,0 +1,9 @@
+build/**
+build/**
+bin/**
+
+# CMake related
+CMakeUserPresets.json
+
+# IDE 
+.vscode/**
