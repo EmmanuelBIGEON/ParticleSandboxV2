@@ -3,15 +3,21 @@
 using namespace app; 
 
 
-Application::Application()
+ParticleSandboxApplication::ParticleSandboxApplication()
+{
+    _mainWindow = graphics::WindowFactory::Create(graphics::WindowType::GLFW, 800,800, "Ma super fenêtre");
+}
+
+ParticleSandboxApplication::~ParticleSandboxApplication()
 {
 }
 
-Application::~Application()
+bool ParticleSandboxApplication::Run()
 {
-}
+    if(!_mainWindow) return false;
 
-bool Application::Run()
-{
-    return false;
+    if(!_mainWindow->Run())
+        throw std::runtime_error("ParticleSandboxApplication Window failed to run");
+
+    return true;
 }

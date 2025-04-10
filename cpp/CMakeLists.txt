@@ -12,6 +12,7 @@ set(SOURCES
     src/graphics/Window.cpp
 )
 add_executable(ParticleSandboxV2 ${SOURCES})
+target_include_directories(ParticleSandboxV2 PUBLIC src)
 
 set_property(TARGET ParticleSandboxV2 PROPERTY CXX_STANDARD 23)
 

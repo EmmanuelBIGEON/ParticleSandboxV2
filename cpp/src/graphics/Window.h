@@ -1,10 +1,14 @@
 #pragma once
 
+#include <memory>
+
 #ifdef USE_GLFW
 #include <GLFW/glfw3.h>
 #endif
 
 namespace graphics {
+
+    enum class WindowType { GLFW };
 
     //! \class Window
     //! \brief Abstract class for a window
@@ -12,13 +16,15 @@ namespace graphics {
         public:
             virtual ~IWindow() = default;
             
-            virtual bool Init() = 0;
             virtual bool Run() = 0;
-            virtual bool Destroy() = 0;
-
-            virtual void Display() = 0;
-            virtual void Hide() = 0;
     };
+
+    //! \class WindowFactory
+    class WindowFactory {
+        public:
+            static std::unique_ptr<IWindow> Create(WindowType type, int width, int height, const char* title);
+    };
+    
 
 #ifdef USE_GLFW // Collapse for clarity.
     //! \class GLFWWindow
@@ -28,15 +34,10 @@ namespace graphics {
             GLFWWindow(int width, int height, const char* title); 
             virtual ~GLFWWindow();
             
-            virtual bool Init() override;
             virtual bool Run() override;
-            virtual bool Destroy() override;
-
-            virtual void Display() override;
-            virtual void Hide() override;
 
         protected:
-            GLFWwindow* m_window;
+            GLFWwindow* _window;
     };
 #endif
 

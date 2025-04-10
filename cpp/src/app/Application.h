@@ -1,11 +1,27 @@
 #pragma once
 
+#include <memory>
+
+#include "graphics/Window.h"
+
 namespace app {
-    class Application {
+    //! \class IApplication
+    //! \brief Abstract class for an application
+    class IApplication {
         public:
-            Application();
-            virtual ~Application();
+            virtual ~IApplication() = default;
 
             virtual bool Run() = 0;
+    };
+
+    class ParticleSandboxApplication : public IApplication {
+        public:
+            ParticleSandboxApplication();
+            virtual ~ParticleSandboxApplication();
+
+            virtual bool Run() override;
+        
+        protected:
+            std::unique_ptr<graphics::IWindow> _mainWindow;
     };
 }
