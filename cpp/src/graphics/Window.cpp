@@ -40,12 +40,45 @@ GLFWWindow::~GLFWWindow()
 
 bool GLFWWindow::Run()
 {
-    if(!_window) return false;
+    if (!_window)
+        return false;
 
-    while(!glfwWindowShouldClose(_window)) {
+    constexpr double targetDeltaTime = 1.0 / 60.0; // 60 FPS
+    double lastTime = glfwGetTime();
+    double accumulator = 0.0;
+
+    while (!glfwWindowShouldClose(_window))
+    {
+        double currentTime = glfwGetTime();
+        double frameTime = currentTime - lastTime;
+        lastTime = currentTime;
+
+        accumulator += frameTime;
+
         glfwPollEvents();
+
+        while (accumulator >= targetDeltaTime)
+        {
+            _scene->Update(static_cast<float>(targetDeltaTime));
+            accumulator -= targetDeltaTime;
+        }
+
+        _scene->Render(*_renderer);
+
         glfwSwapBuffers(_window);
     }
+
     return true;
 }
+
+void GLFWWindow::SetScene(std::unique_ptr<IScene> scene)
+{
+    _scene = std::move(scene);
+}
+
+void GLFWWindow::SetRenderer(std::unique_ptr<IRenderer> renderer)
+{
+    _renderer = std::move(renderer);
+}
+
 #endif

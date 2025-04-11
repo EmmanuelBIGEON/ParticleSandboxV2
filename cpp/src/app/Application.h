@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "graphics/Window.h"
+#include "graphics/RenderDevice.h"
 
 namespace app {
     //! \class IApplication
@@ -23,5 +24,6 @@ namespace app {
         
         protected:
             std::unique_ptr<graphics::IWindow> _mainWindow;
+            std::unique_ptr<graphics::IRenderDevice> _renderDevice;
     };
 }
