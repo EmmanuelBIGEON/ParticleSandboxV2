@@ -12,6 +12,7 @@ target_sources(ParticleSandboxV2Lib
     PRIVATE
     src/app/Application.cpp
     src/core/Context.cpp
+    src/core/Particle.cpp
     src/core/Simulation.cpp
     src/core/Solver.cpp
     src/graphics/RenderDevice.cpp

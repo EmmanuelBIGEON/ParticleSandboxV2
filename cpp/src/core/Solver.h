@@ -31,4 +31,16 @@ namespace core {
         protected:
             std::vector<std::unique_ptr<ISolver>> _solvers;
     };
+
+    //! \class UpSolver
+    //! \brief Move up particles.
+    class UpSolver : public ISolver {
+        public:
+            UpSolver(float value);
+            virtual ~UpSolver();
+
+            virtual void Step(IContext& context, float deltaTime) override;
+        protected:
+            float _value;
+    };
 }
