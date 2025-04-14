@@ -4,7 +4,6 @@
 
 #include "graphics/Window.h"
 #include "graphics/RenderEngine.h"
-#include "core/Simulation.h"
 
 namespace app {
     //! \class IApplication
@@ -25,6 +24,5 @@ namespace app {
         
         protected:
             std::unique_ptr<graphics::IWindow> _mainWindow;
-            std::unique_ptr<core::ISimulation> _simulation;
     };
 }

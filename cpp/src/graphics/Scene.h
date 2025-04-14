@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Renderer.h"
 #include "RenderEngine.h"
+#include "core/Simulation.h"
 
 namespace graphics {
     //! \class IScene
@@ -24,5 +26,9 @@ namespace graphics {
             
             virtual void Update(float deltaTime) override;
             virtual void Render(IRenderEngine& renderEngine) override;
+
+        protected:
+            std::unique_ptr<core::ISimulation> _simulation;
+
     };
 }
