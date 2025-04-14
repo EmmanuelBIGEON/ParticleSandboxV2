@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 23)
 
 option(USE_GLFW "Enable GLFW support" ON)
 option(USE_FMT "Enable FMT support" ON)
-
 project(ParticleSandboxV2)
 
 add_library(ParticleSandboxV2Lib)
@@ -15,9 +14,11 @@ target_sources(ParticleSandboxV2Lib
     src/core/Particle.cpp
     src/core/Simulation.cpp
     src/core/Solver.cpp
-    src/graphics/RenderDevice.cpp
+    src/graphics/Layout.cpp
+    src/graphics/RenderEngine.cpp
     src/graphics/Renderer.cpp
     src/graphics/Scene.cpp
+    src/graphics/View.cpp
     src/graphics/Window.cpp
 )
 
@@ -33,6 +34,15 @@ if(USE_FMT)
     target_compile_definitions(ParticleSandboxV2Lib PRIVATE USE_FMT)
     find_package(fmt REQUIRED)
     target_link_libraries(ParticleSandboxV2Lib fmt::fmt)
+endif()
+
+find_package(glm REQUIRED)
+target_link_libraries(ParticleSandboxV2Lib glm::glm)
+
+if(1)
+    target_compile_definitions(ParticleSandboxV2Lib PRIVATE USE_OPENGL)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(ParticleSandboxV2Lib OpenGL::GL)
 endif()
 
 # ParticleSandboxV2 executable

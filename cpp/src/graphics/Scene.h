@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderer.h"
+#include "RenderEngine.h"
 
 namespace graphics {
     //! \class IScene
@@ -12,6 +12,17 @@ namespace graphics {
             virtual ~IScene() = default;
             
             virtual void Update(float deltaTime) = 0;
-            virtual void Render(IRenderer& renderer) = 0;
+            virtual void Render(IRenderEngine& renderEngine) = 0;
+    };
+    
+    //! \class TestScene
+    //! \brief A test scene.
+    class TestScene : public IScene {
+        public:
+            TestScene();
+            virtual ~TestScene() override;
+            
+            virtual void Update(float deltaTime) override;
+            virtual void Render(IRenderEngine& renderEngine) override;
     };
 }

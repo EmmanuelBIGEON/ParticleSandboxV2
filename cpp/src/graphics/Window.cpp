@@ -30,6 +30,7 @@ GLFWWindow::GLFWWindow(int width, int height, const char* title)
 
     glfwMakeContextCurrent(_window);
 
+    _renderEngine = std::make_unique<graphics::OpenGLRenderEngine>();
 }
 
 GLFWWindow::~GLFWWindow() 
@@ -63,7 +64,7 @@ bool GLFWWindow::Run()
             accumulator -= targetDeltaTime;
         }
 
-        _scene->Render(*_renderer);
+        _scene->Render(*_renderEngine);
 
         glfwSwapBuffers(_window);
     }
@@ -74,11 +75,6 @@ bool GLFWWindow::Run()
 void GLFWWindow::SetScene(std::unique_ptr<IScene> scene)
 {
     _scene = std::move(scene);
-}
-
-void GLFWWindow::SetRenderer(std::unique_ptr<IRenderer> renderer)
-{
-    _renderer = std::move(renderer);
 }
 
 #endif

@@ -7,7 +7,7 @@
 #endif
 
 #include "Scene.h"
-#include "Renderer.h"
+#include "RenderEngine.h"
 
 namespace graphics {
 
@@ -20,7 +20,6 @@ namespace graphics {
             virtual ~IWindow() = default;
             
             virtual void SetScene(std::unique_ptr<IScene> scene) = 0;
-            virtual void SetRenderer(std::unique_ptr<IRenderer> renderer) = 0;
             virtual bool Run() = 0;
     };
 
@@ -41,12 +40,11 @@ namespace graphics {
             
             virtual bool Run() override;
             virtual void SetScene(std::unique_ptr<IScene> scene) override;
-            virtual void SetRenderer(std::unique_ptr<IRenderer> renderer) override;
 
         protected:
             GLFWwindow* _window;
             std::unique_ptr<IScene> _scene;
-            std::unique_ptr<IRenderer> _renderer;
+            std::unique_ptr<IRenderEngine> _renderEngine;
     };
 #endif
 

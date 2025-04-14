@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "graphics/Window.h"
-#include "graphics/RenderDevice.h"
+#include "graphics/RenderEngine.h"
 #include "core/Simulation.h"
 
 namespace app {
@@ -25,7 +25,6 @@ namespace app {
         
         protected:
             std::unique_ptr<graphics::IWindow> _mainWindow;
-            std::unique_ptr<graphics::IRenderDevice> _renderDevice;
             std::unique_ptr<core::ISimulation> _simulation;
     };
 }
