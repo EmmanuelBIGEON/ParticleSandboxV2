@@ -64,7 +64,7 @@ bool GLFWWindow::Run()
             accumulator -= targetDeltaTime;
         }
 
-        _scene->Render(*_renderEngine);
+        _scene->Render();
 
         glfwSwapBuffers(_window);
     }
@@ -77,4 +77,8 @@ void GLFWWindow::SetScene(std::unique_ptr<IScene> scene)
     _scene = std::move(scene);
 }
 
+IRenderEngine& GLFWWindow::GetRenderEngine()
+{
+    return *_renderEngine;
+}
 #endif

@@ -2,6 +2,7 @@
 
 #include "Renderer.h"
 #include "RenderEngine.h"
+#include "View.h"
 #include "core/Simulation.h"
 
 namespace graphics {
@@ -14,21 +15,22 @@ namespace graphics {
             virtual ~IScene() = default;
             
             virtual void Update(float deltaTime) = 0;
-            virtual void Render(IRenderEngine& renderEngine) = 0;
+            virtual void Render() = 0;
     };
     
     //! \class TestScene
     //! \brief A test scene.
     class TestScene : public IScene {
         public:
-            TestScene();
+            TestScene(IRenderEngine& renderEngine);
             virtual ~TestScene() override;
             
             virtual void Update(float deltaTime) override;
-            virtual void Render(IRenderEngine& renderEngine) override;
+            virtual void Render() override;
 
         protected:
             std::unique_ptr<core::ISimulation> _simulation;
+            std::unique_ptr<TestView> _view;
 
     };
 }

@@ -20,6 +20,9 @@ target_sources(ParticleSandboxV2Lib
     src/graphics/Scene.cpp
     src/graphics/View.cpp
     src/graphics/Window.cpp
+    src/graphics/rhi/Shader.cpp
+    src/graphics/rhi/VertexArray.cpp
+    src/graphics/rhi/VertexBuffer.cpp
 )
 
 target_include_directories(ParticleSandboxV2Lib PUBLIC src)
@@ -43,6 +46,9 @@ if(1)
     target_compile_definitions(ParticleSandboxV2Lib PRIVATE USE_OPENGL)
     find_package(OpenGL REQUIRED)
     target_link_libraries(ParticleSandboxV2Lib OpenGL::GL)
+        
+    find_package(glad)
+    target_link_libraries(ParticleSandboxV2Lib glad::glad)
 endif()
 
 # ParticleSandboxV2 executable

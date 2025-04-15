@@ -21,6 +21,8 @@ namespace graphics {
             
             virtual void SetScene(std::unique_ptr<IScene> scene) = 0;
             virtual bool Run() = 0;
+
+            virtual IRenderEngine& GetRenderEngine() = 0;
     };
 
     //! \class WindowFactory
@@ -40,6 +42,8 @@ namespace graphics {
             
             virtual bool Run() override;
             virtual void SetScene(std::unique_ptr<IScene> scene) override;
+
+            virtual IRenderEngine& GetRenderEngine() override;
 
         protected:
             GLFWwindow* _window;

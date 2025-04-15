@@ -5,7 +5,7 @@
 
 using namespace graphics;
 
-TestScene::TestScene()
+TestScene::TestScene(IRenderEngine& renderEngine)
 {
     auto simulation = std::make_unique<core::SimpleSimulation>();
 
@@ -19,6 +19,8 @@ TestScene::TestScene()
         std::cout << fmt::format("Particle(x: {:.2f}, y: {:.2f})", particle.posX, particle.posY) << std::endl;
 
     _simulation = std::move(simulation);
+
+    _view = std::make_unique<TestView>(renderEngine);
 }
 
 TestScene::~TestScene()
@@ -30,7 +32,7 @@ void TestScene::Update(float deltaTime)
     // _simulation->Step(1.0f); // whatever.
 }
 
-void TestScene::Render(IRenderEngine& renderEngine)
+void TestScene::Render()
 {
-    renderEngine.FillScreen({ 0.0f, 0.7f, 0.5f });
+    _view->Render();
 }

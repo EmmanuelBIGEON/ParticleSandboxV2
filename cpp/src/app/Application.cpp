@@ -9,7 +9,7 @@ using namespace app;
 ParticleSandboxApplication::ParticleSandboxApplication()
 {
     _mainWindow = graphics::WindowFactory::Create(graphics::WindowType::GLFW, 800, 800, "Ma super fenêtre");
-    _mainWindow->SetScene(std::move(std::make_unique<graphics::TestScene>()));
+    _mainWindow->SetScene(std::move(std::make_unique<graphics::TestScene>(_mainWindow->GetRenderEngine())));
 }
 
 ParticleSandboxApplication::~ParticleSandboxApplication()

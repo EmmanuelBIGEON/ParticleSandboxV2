@@ -28,6 +28,7 @@ namespace graphics {
             virtual void Render() override;
         
         private:
+            IRenderEngine& _renderEngine;
             // Renderers
             std::unique_ptr<TriangleRenderer> _triangleRenderer;
     };
