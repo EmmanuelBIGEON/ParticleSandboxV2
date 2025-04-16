@@ -1,22 +1,68 @@
 #include "Shader.h"
 
+#include <iostream>
+
 using namespace graphics::rhi;
 
 #ifdef USE_OPENGL
 #include <glad/glad.h>
 
-OpenGLShader::OpenGLShader()
+OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource)
 {
-    // todo
-}
+    GLuint vs = CompileShader(GL_VERTEX_SHADER, vertexSource);
+    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fragmentSource);
+    if (vs && fs) LinkProgram(vs, fs);
 
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+}
 OpenGLShader::~OpenGLShader()
 {
+    if (_program)
+        glDeleteProgram(_program);
 }
 
 void OpenGLShader::Bind()
 {
-    glUseProgram(shaderID);
+    glUseProgram(_program);
+}
+
+GLuint OpenGLShader::CompileShader(GLenum type, const std::string& source)
+{
+    GLuint shader = glCreateShader(type);
+    const char* src = source.c_str();
+    glShaderSource(shader, 1, &src, nullptr);
+    glCompileShader(shader);
+
+    GLint success = GL_FALSE;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char log[512];
+        glGetShaderInfoLog(shader, sizeof(log), nullptr, log);
+        std::cerr << "[Shader Compilation Error] " << log << std::endl;
+        glDeleteShader(shader);
+        return 0;
+    }
+
+    return shader;
+}
+
+void OpenGLShader::LinkProgram(GLuint vertexShader, GLuint fragmentShader)
+{
+    _program = glCreateProgram();
+    glAttachShader(_program, vertexShader);
+    glAttachShader(_program, fragmentShader);
+    glLinkProgram(_program);
+
+    GLint success = GL_FALSE;
+    glGetProgramiv(_program, GL_LINK_STATUS, &success);
+    if (!success) {
+        char log[512];
+        glGetProgramInfoLog(_program, sizeof(log), nullptr, log);
+        std::cerr << "[Shader Linking Error] " << log << std::endl;
+        glDeleteProgram(_program);
+        _program = 0;
+    }
 }
 
 void OpenGLShader::SetBool(const char* name, bool value) const

@@ -1,9 +1,10 @@
 #pragma once
 
+#include <string>
 #include <glm/ext.hpp>
 
 namespace graphics::rhi {
-    //! \class IVertexArray
+    //! \class IShader
     //! \brief An abstract class representing a shader
     class IShader {
         public:
@@ -23,11 +24,12 @@ namespace graphics::rhi {
     };
 
 #ifdef USE_OPENGL
+    #include <glad/glad.h>
     //! \class OpenGLShader
     //! \brief An OpenGL shader.
     class OpenGLShader : public IShader {
         public:
-            OpenGLShader();
+            OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource);
             virtual ~OpenGLShader() override;
         
             virtual void Bind() override;
@@ -44,6 +46,10 @@ namespace graphics::rhi {
 
         private:
             unsigned int shaderID;
+            GLuint _program = 0;
+    
+            GLuint CompileShader(GLenum type, const std::string& source);
+            void LinkProgram(GLuint vertexShader, GLuint fragmentShader);
     };
 #endif
 }
