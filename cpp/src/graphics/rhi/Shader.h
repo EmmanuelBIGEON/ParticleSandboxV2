@@ -3,6 +3,7 @@
 #include <string>
 #include <glm/ext.hpp>
 
+
 namespace graphics::rhi {
     //! \class IShader
     //! \brief An abstract class representing a shader
@@ -24,7 +25,7 @@ namespace graphics::rhi {
     };
 
 #ifdef USE_OPENGL
-    #include <glad/glad.h>
+#include <glad/glad.h>
     //! \class OpenGLShader
     //! \brief An OpenGL shader.
     class OpenGLShader : public IShader {

@@ -1,5 +1,6 @@
 #include "Window.h"
 
+#include <iostream>
 #include <stdexcept>
 
 using namespace graphics;
@@ -18,6 +19,9 @@ std::unique_ptr<IWindow> WindowFactory::Create(WindowType type, int width, int h
 #ifdef USE_GLFW // Collapse for clarity.
 GLFWWindow::GLFWWindow(int width, int height, const char* title)
 {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_SAMPLES, 4);
     if (!glfwInit())
         throw std::runtime_error("GLFW init failed");
 
@@ -29,6 +33,8 @@ GLFWWindow::GLFWWindow(int width, int height, const char* title)
     }
 
     glfwMakeContextCurrent(_window);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){ std::cout << "Failed to initialize GLAD" << std::endl; return; }
 
     _renderEngine = std::make_unique<graphics::OpenGLRenderEngine>();
 }

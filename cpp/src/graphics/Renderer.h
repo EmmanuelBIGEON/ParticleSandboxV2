@@ -22,6 +22,9 @@ namespace graphics {
             void Render(const common::Triangle& triangle);
         private:
             IRenderEngine& _renderEngine;
+
+            std::shared_ptr<rhi::IShader> _shaderTriangle;
+            std::unique_ptr<rhi::IVertexArray> _vertexArray;
     };
 
     //! \class RectangleRenderer

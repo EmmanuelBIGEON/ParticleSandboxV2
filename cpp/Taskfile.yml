@@ -3,7 +3,7 @@ version: '3'
 vars:
   PRESET: default-windows
   PROFILE: default
-  BUILD_TYPE: Release
+  BUILD_TYPE: Debug
   
 tasks:
   build:

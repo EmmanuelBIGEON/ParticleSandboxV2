@@ -62,6 +62,8 @@ void OpenGLShader::LinkProgram(GLuint vertexShader, GLuint fragmentShader)
         std::cerr << "[Shader Linking Error] " << log << std::endl;
         glDeleteProgram(_program);
         _program = 0;
+    }else {
+        std::cout << "Shader successfully linked." << std::endl;
     }
 }
 

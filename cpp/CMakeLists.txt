@@ -23,6 +23,7 @@ target_sources(ParticleSandboxV2Lib
     src/graphics/rhi/Shader.cpp
     src/graphics/rhi/VertexArray.cpp
     src/graphics/rhi/VertexBuffer.cpp
+    src/util/Filesystem.cpp
 )
 
 target_include_directories(ParticleSandboxV2Lib PUBLIC src)
@@ -55,3 +56,4 @@ endif()
 add_executable(ParticleSandboxV2 src/main/main.cpp)
 target_link_libraries(ParticleSandboxV2 PRIVATE ParticleSandboxV2Lib)
 install(TARGETS ParticleSandboxV2 DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_BUILD_TYPE})
+install(DIRECTORY shaders DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_BUILD_TYPE})

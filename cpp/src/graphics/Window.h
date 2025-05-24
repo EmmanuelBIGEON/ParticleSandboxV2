@@ -3,6 +3,7 @@
 #include <memory>
 
 #ifdef USE_GLFW
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #endif
 
