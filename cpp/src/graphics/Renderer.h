@@ -10,6 +10,8 @@ namespace graphics {
     class IRenderer {
         public:
             virtual ~IRenderer() = default;
+
+            virtual void Render() = 0;
     };
 
     //! \class TriangleRenderer
@@ -19,12 +21,14 @@ namespace graphics {
             TriangleRenderer(IRenderEngine& renderEngine);
             virtual ~TriangleRenderer() override;
 
-            void Render(const common::Triangle& triangle);
+            void SetTriangle(const common::Triangle& triangle);
+
+            virtual void Render() override;
         private:
             IRenderEngine& _renderEngine;
-
-            std::shared_ptr<rhi::IShader> _shaderTriangle;
             std::unique_ptr<rhi::IVertexArray> _vertexArray;
+            std::unique_ptr<rhi::IVertexBuffer> _vertexBuffer;
+            std::array<float, 6> _dataArray;
     };
 
     //! \class RectangleRenderer
@@ -34,6 +38,7 @@ namespace graphics {
             RectangleRenderer(IRenderEngine& renderEngine);
             virtual ~RectangleRenderer() override;
 
+            virtual void Render() override;
         private:
             IRenderEngine& _renderEngine;
     };
@@ -45,6 +50,7 @@ namespace graphics {
             CubeRenderer(IRenderEngine& renderEngine);
             virtual ~CubeRenderer() override;
 
+            virtual void Render() override;
         private:
             IRenderEngine& _renderEngine;
     };

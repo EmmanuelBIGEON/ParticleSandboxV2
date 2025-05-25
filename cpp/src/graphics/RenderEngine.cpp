@@ -2,6 +2,8 @@
 
 using namespace graphics;
 
+#include "util/Filesystem.h"
+
 #ifdef USE_OPENGL
 
 OpenGLRenderEngine::OpenGLRenderEngine()
@@ -43,5 +45,26 @@ void OpenGLRenderEngine::DrawArrays(DrawMode topology, int count)
     }
 
     glDrawArrays(glMode, 0, count);
+}
+
+void OpenGLRenderEngine::BindShader(ShaderType type)
+{
+    auto it = _mapShaders.find(type);
+    if (it != _mapShaders.end()) {
+        it->second->Bind();
+        return;
+    }
+
+    switch(type) {
+        case ShaderType::Basic: {
+            std::string vertexCode, fragmentCode;
+            if (!util::readFileIfExists("./shaders/basic.vs", vertexCode)) throw std::runtime_error("'SHADER BASIC' Vertex shader file not found or unreadable");
+            if (!util::readFileIfExists("./shaders/basic.fs", fragmentCode)) throw std::runtime_error("'SHADER BASIC' Fragment shader file not found or unreadable");
+            auto shader = CreateShader(vertexCode, fragmentCode);
+            _mapShaders[ShaderType::Basic] = shader;
+            shader->Bind();
+            break;
+        }
+    }
 }
 #endif

@@ -3,6 +3,9 @@
 #include <filesystem>
 #include <fmt/core.h>
 
+#include <fstream>
+#include <sstream>
+
 using namespace util;
 namespace fs = std::filesystem;
 
@@ -30,4 +33,19 @@ void util::displayDirectory(const std::string& directory)
     catch (const fs::filesystem_error& e) {
         fmt::print(stderr, "💥 Erreur filesystem : {}\n", e.what());
     }
+}
+
+bool util::readFileIfExists(const std::string& path, std::string& outContent)
+{
+    if (!fs::exists(path) || !fs::is_regular_file(path)) return false;
+
+    std::ifstream file(path);
+    if (!file.is_open()) {
+        return false;
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    outContent = buffer.str();
+    return true;
 }
